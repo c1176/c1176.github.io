@@ -319,9 +319,16 @@ section { padding: 120px var(--pad); max-width: var(--container); margin: 0 auto
 .srv {
   position: relative; background: var(--bg-1);
   border: 1px solid var(--line); border-radius: var(--radius-l);
-  padding: 32px; transition: all .3s;
+  padding: 32px; transition: all .35s cubic-bezier(.4,0,.2,1);
+  overflow: hidden;
 }
-.srv:hover { transform: translateY(-4px); border-color: rgba(40, 224, 196, 0.3); }
+.srv::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+  opacity: 0; transition: opacity .35s;
+}
+.srv:hover { transform: translateY(-4px); border-color: rgba(40, 224, 196, 0.25); box-shadow: 0 8px 32px rgba(40,224,196,0.10); }
+.srv:hover::before { opacity: 1; }
 .srv--feature {
   background: linear-gradient(160deg, rgba(40, 224, 196, 0.06), rgba(255, 45, 138, 0.06));
   border-color: rgba(40, 224, 196, 0.4);
