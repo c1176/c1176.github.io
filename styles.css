@@ -210,6 +210,20 @@ section { padding: 120px var(--pad); max-width: var(--container); margin: 0 auto
 .tag--classic { color: #ffd86b; border-color: rgba(255, 184, 71, 0.4); }
 
 /* ====================== Works ====================== */
+.works__disclaimer {
+  background: rgba(255, 180, 60, 0.06);
+  border: 1px solid rgba(255, 180, 60, 0.25);
+  border-radius: 8px;
+  padding: 14px 20px;
+  margin-bottom: 32px;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text-1);
+}
+.works__disclaimer p { margin: 0; }
+.works__disclaimer a { color: var(--neon-cyan); text-decoration: none; }
+.works__disclaimer a:hover { text-decoration: underline; }
+
 .works__tabs {
   display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 48px;
   padding-bottom: 24px; border-bottom: 1px solid var(--line);
