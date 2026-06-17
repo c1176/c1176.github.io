@@ -187,8 +187,21 @@ section { padding: 120px var(--pad); max-width: var(--container); margin: 0 auto
 .about__grid {
   display: grid; grid-template-columns: 1.1fr 1fr; gap: 64px; align-items: start;
 }
-.about__text p { font-size: 16px; color: var(--text-1); margin-bottom: 16px; line-height: 1.8; }
-.about__lead { font-size: 22px !important; color: var(--text-0) !important; line-height: 1.5 !important; }
+.about__text p { font-size: 16px; color: var(--text-1); margin-bottom: 18px; line-height: 1.85; }
+.about__lead { font-size: 22px !important; color: var(--text-0) !important; line-height: 1.5 !important; margin-bottom: 22px !important; }
+.about__quote {
+  margin-top: 28px !important; padding: 18px 22px;
+  border-left: 2px solid var(--neon-cyan);
+  background: rgba(40, 224, 196, 0.04);
+  color: var(--text-0) !important;
+  font-size: 17px !important; font-style: italic;
+  border-radius: 0 8px 8px 0;
+  position: relative;
+}
+.quote-mark {
+  font-size: 28px; line-height: 1; color: var(--neon-cyan);
+  margin-right: 4px; font-style: normal; font-weight: 600;
+}
 .about__panel {
   background: var(--bg-1); border: 1px solid var(--line);
   border-radius: var(--radius-l); padding: 28px; position: sticky; top: 100px;
@@ -209,6 +222,26 @@ section { padding: 120px var(--pad); max-width: var(--container); margin: 0 auto
   color: var(--text-1);
 }
 .tag--accent { color: var(--neon-cyan); border-color: rgba(40, 224, 196, 0.4); background: rgba(40, 224, 196, 0.06); }
+
+/* ====== About: 交付能力(Reach) ====== */
+.reach-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.reach-list li {
+  display: grid; grid-template-columns: 8px 1fr auto;
+  align-items: center; gap: 12px;
+  font-size: 12px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--line);
+  transition: border-color .2s, background .2s;
+}
+.reach-list li:hover { border-color: rgba(40,224,196,0.3); background: rgba(40,224,196,0.04); }
+.reach-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--neon-cyan); box-shadow: 0 0 8px rgba(40,224,196,0.6);
+}
+.reach-list strong { color: var(--text-0); font-weight: 600; font-size: 12.5px; }
+.reach-list em { font-style: normal; color: var(--text-2); font-size: 11px; }
 
 @media (max-width: 720px) {
   .about__grid, .contact__grid { grid-template-columns: 1fr; gap: 32px; }
