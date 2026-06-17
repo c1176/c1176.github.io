@@ -166,8 +166,8 @@ document.getElementById('baClose').addEventListener('click', closeBA);
 modal.addEventListener('click', (e) => { if (e.target === modal) closeBA(); });
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeBA(); });
 
-/* ---------- 6. 联系表单 → Web3Forms 提交 ---------- */
-const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
+/* ---------- 6. 联系表单 → FormSubmit.co 提交 (备用通道) ---------- */
+const FORMSUBMIT_ENDPOINT = 'https://formsubmit.co/ajax/914228146@qq.com';
 
 const form = document.getElementById('contactForm');
 const formStatus = document.getElementById('formStatus');
@@ -178,18 +178,29 @@ form?.addEventListener('submit', async (e) => {
   formStatus.style.color = 'var(--text-muted)';
 
   try {
-    const res = await fetch(WEB3FORMS_ENDPOINT, {
+    // FormSubmit 接受 FormData,不需要 access_key,首次使用会发送确认邮件
+    const formData = new FormData();
+    formData.append('_subject', 'c176 studio · 新项目询价');
+    formData.append('_template', 'table');
+    formData.append('_captcha', 'false');
+    formData.append('name', data.name || '');
+    formData.append('contact', data.contact || '');
+    formData.append('project_type', data.type || '');
+    formData.append('deadline', data.deadline || '');
+    formData.append('message', data.msg || '');
+
+    const res = await fetch(FORMSUBMIT_ENDPOINT, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify(data)
+      headers: { 'Accept': 'application/json' },
+      body: formData
     });
     const json = await res.json().catch(() => ({}));
-    if (res.ok && json.success) {
+    if (res.ok && (json.success === 'true' || json.success === true)) {
       formStatus.textContent = '✅ 询价已发送！我会在 12 小时内联系你（请同时检查垃圾邮件箱）。';
       formStatus.style.color = 'var(--neon-cyan)';
       form.reset();
     } else {
-      console.error('Web3Forms error:', res.status, json);
+      console.error('FormSubmit error:', res.status, json);
       formStatus.textContent = `❌ 发送失败（${res.status}）${json.message ? ': ' + json.message : ''}。请直接加微信或发邮件至 914228146@qq.com 联系我。`;
       formStatus.style.color = '#ff6b6b';
     }
