@@ -205,10 +205,90 @@ section { padding: 120px var(--pad); max-width: var(--container); margin: 0 auto
   color: var(--text-1);
 }
 .tag--accent { color: var(--neon-cyan); border-color: rgba(40, 224, 196, 0.4); background: rgba(40, 224, 196, 0.06); }
-.tag--pop { color: #ff7eb6; border-color: rgba(255, 45, 138, 0.4); }
-.tag--rock { color: #ff8a5b; border-color: rgba(255, 94, 58, 0.4); }
-.tag--jazz { color: #28e0c4; border-color: rgba(40, 224, 196, 0.4); }
-.tag--classic { color: #ffd86b; border-color: rgba(255, 184, 71, 0.4); }
+
+/* ====== About: Signal Chain ====== */
+.chain { margin-bottom: 8px; }
+.chain__row {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 4px; padding: 14px 4px 4px;
+}
+.chain__node {
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  min-width: 0; flex: 0 0 auto;
+}
+.chain__dot {
+  width: 14px; height: 14px; border-radius: 50%;
+  background: var(--bg-1); border: 2px solid var(--text-2);
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.02);
+  transition: all .25s ease;
+}
+.chain__dot--in     { border-color: #6ec1ff; background: #6ec1ff; box-shadow: 0 0 14px rgba(110,193,255,0.55); }
+.chain__dot--edit   { border-color: #b48cff; background: #b48cff; box-shadow: 0 0 14px rgba(180,140,255,0.55); }
+.chain__dot--mix    { border-color: var(--neon-cyan); background: var(--neon-cyan); box-shadow: 0 0 14px rgba(40,224,196,0.6); }
+.chain__dot--master { border-color: #ff8a5b; background: #ff8a5b; box-shadow: 0 0 14px rgba(255,138,91,0.55); }
+.chain__dot--out    { border-color: #ff7eb6; background: #ff7eb6; box-shadow: 0 0 14px rgba(255,126,182,0.55); }
+.chain__label {
+  font-size: 11px; color: var(--text-0); text-align: center; line-height: 1.3;
+  letter-spacing: 0.4px;
+}
+.chain__label span { color: var(--text-2); font-size: 9.5px; letter-spacing: 0.3px; }
+.chain__line {
+  flex: 1 1 auto; height: 2px; min-width: 10px; margin-bottom: 28px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.18), rgba(255,255,255,0.02));
+  position: relative; overflow: hidden;
+}
+.chain__line::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent 0%, var(--neon-cyan) 50%, transparent 100%);
+  animation: chain-flow 2.4s linear infinite;
+}
+@keyframes chain-flow {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* ====== About: Stats Grid ====== */
+.about__stats {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
+  margin: 6px 0 4px;
+}
+.stat {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px 10px; text-align: center;
+}
+.stat__num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px; font-weight: 600;
+  color: var(--neon-cyan); line-height: 1.1;
+}
+.stat__num span { font-size: 9px; color: var(--text-2); font-weight: 400; letter-spacing: 1px; }
+.stat__label {
+  font-size: 10px; color: var(--text-2); margin-top: 6px;
+  letter-spacing: 0.5px;
+}
+
+/* ====== About: Genre Bar ====== */
+.genre-bar {
+  display: flex; height: 36px; border-radius: 8px; overflow: hidden;
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,0.02);
+}
+.genre-segment {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  font-size: 10px; color: rgba(0,0,0,0.8); font-weight: 500;
+  position: relative; padding: 4px 2px;
+  transition: filter .2s ease;
+}
+.genre-segment:hover { filter: brightness(1.15); }
+.genre-segment span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+.genre-segment em { font-style: normal; font-size: 9px; opacity: 0.7; font-family: 'JetBrains Mono', monospace; }
+.genre-segment--pop     { background: linear-gradient(180deg, #ff7eb6, #ff5c9c); }
+.genre-segment--rock    { background: linear-gradient(180deg, #ff8a5b, #ff6a2b); }
+.genre-segment--jazz    { background: linear-gradient(180deg, #5eead4, #28e0c4); }
+.genre-segment--classic { background: linear-gradient(180deg, #ffe28a, #ffb847); }
+.genre-segment--elec    { background: linear-gradient(180deg, #b48cff, #8a5bff); color: rgba(255,255,255,0.9); }
 
 /* ====================== Works ====================== */
 .works__disclaimer {
@@ -597,6 +677,8 @@ section { padding: 120px var(--pad); max-width: var(--container); margin: 0 auto
   .nav__burger { display: flex; }
   .about__grid, .contact__grid { grid-template-columns: 1fr; gap: 32px; }
   .about__panel { position: static; }
+  .chain__row { flex-wrap: wrap; row-gap: 14px; }
+  .chain__line { min-width: 16px; }
   .hero__meta { grid-template-columns: repeat(2, 1fr); }
   .ba { grid-template-columns: 1fr; }
 }
