@@ -396,12 +396,7 @@
     </div>
 
     <div class="contact__grid">
-      <form class="contact__form" id="contactForm" action="https://formsubmit.co/914228146@qq.com" method="POST">
-        <input type="hidden" name="_subject" value="c176 studio · 新项目询价" />
-        <input type="hidden" name="_template" value="table" />
-        <input type="hidden" name="_captcha" value="false" />
-        <!-- 防垃圾:蜜罐字段(隐藏,机器人会填) -->
-        <input type="checkbox" name="botcheck" class="hidden" style="display:none" />
+      <form class="contact__form" id="contactForm">
         <h3>项目询价 · 留下你的需求</h3>
         <label>
           <span>姓名 / 艺名</span>
@@ -465,6 +460,42 @@
       <p class="foot__sub">Crafted in <span>Pro Tools</span> · Designed in <span>VS Code</span></p>
     </div>
   </footer>
+
+  <!-- 询价成功 → 双通道联系模态框 -->
+  <div class="modal" id="contactModal" aria-hidden="true">
+    <div class="modal__box modal__box--contact">
+      <button class="modal__close" id="contactClose" aria-label="关闭">×</button>
+      <h3>✅ 询价已记录!</h3>
+      <p class="modal__sub">感谢你的信任。请通过以下任一方式联系我,我会尽快回复。</p>
+
+      <div class="contact-channels">
+        <div class="contact-channel">
+          <div class="contact-channel__qr">
+            <img src="assets/wechat-qr.jpg" alt="WeChat QR" />
+          </div>
+          <div class="contact-channel__info">
+            <h4>微信 · 加好友</h4>
+            <p>扫码添加,备注<strong>「混音」</strong></p>
+          </div>
+        </div>
+
+        <div class="contact-channel">
+          <div class="contact-channel__icon">✉</div>
+          <div class="contact-channel__info">
+            <h4>邮件</h4>
+            <p>
+              <a href="mailto:914228146@qq.com" id="contactEmail" class="copyable" data-copy="914228146@qq.com">
+                914228146@qq.com
+              </a>
+              <span class="copy-hint">点击复制</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <p class="contact-foot">通常 12 小时内回复 · 远程可全球</p>
+    </div>
+  </div>
 
   <!-- Before/After 模态框 -->
   <div class="modal" id="baModal" aria-hidden="true">
