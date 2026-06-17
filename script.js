@@ -166,18 +166,35 @@ document.getElementById('baClose').addEventListener('click', closeBA);
 modal.addEventListener('click', (e) => { if (e.target === modal) closeBA(); });
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeBA(); });
 
-/* ---------- 6. 联系表单(占位提交) ---------- */
+/* ---------- 6. 联系表单 → Formspree 提交 ---------- */
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID'; // ← 替换成你的 Formspree endpoint
+
 const form = document.getElementById('contactForm');
 const formStatus = document.getElementById('formStatus');
-form?.addEventListener('submit', (e) => {
+form?.addEventListener('submit', async (e) => {
   e.preventDefault();
   const data = Object.fromEntries(new FormData(form).entries());
-  // 这里可以接入 Formspree / 邮件服务 / 自建 API
-  console.log('Form submit:', data);
-  formStatus.textContent = '✅ 询价已记录!我会在 12 小时内联系你。';
-  formStatus.style.color = 'var(--neon-cyan)';
-  form.reset();
-  setTimeout(() => { formStatus.textContent = ''; }, 5000);
+  formStatus.textContent = '⏳ 正在发送...';
+  formStatus.style.color = 'var(--text-muted)';
+
+  try {
+    const res = await fetch(FORMSPREE_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    if (res.ok) {
+      formStatus.textContent = '✅ 询价已发送！我会在 12 小时内联系你。';
+      formStatus.style.color = 'var(--neon-cyan)';
+      form.reset();
+    } else {
+      throw new Error('提交失败');
+    }
+  } catch (err) {
+    formStatus.textContent = '❌ 发送失败，请直接加微信或发邮件联系我。';
+    formStatus.style.color = '#ff6b6b';
+  }
+  setTimeout(() => { formStatus.textContent = ''; }, 8000);
 });
 
 /* ---------- 7. 作品卡悬停:声波条纹 CSS 动效 ---------- */
