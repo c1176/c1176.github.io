@@ -183,19 +183,22 @@ form?.addEventListener('submit', async (e) => {
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify(data)
     });
-    const json = await res.json();
+    const json = await res.json().catch(() => ({}));
     if (res.ok && json.success) {
-      formStatus.textContent = '✅ 询价已发送！我会在 12 小时内联系你。';
+      formStatus.textContent = '✅ 询价已发送！我会在 12 小时内联系你（请同时检查垃圾邮件箱）。';
       formStatus.style.color = 'var(--neon-cyan)';
       form.reset();
     } else {
-      throw new Error(json.message || '提交失败');
+      console.error('Web3Forms error:', res.status, json);
+      formStatus.textContent = `❌ 发送失败（${res.status}）${json.message ? ': ' + json.message : ''}。请直接加微信或发邮件至 914228146@qq.com 联系我。`;
+      formStatus.style.color = '#ff6b6b';
     }
   } catch (err) {
-    formStatus.textContent = '❌ 发送失败，请直接加微信或发邮件 (914228146@qq.com) 联系我。';
+    console.error('Fetch error:', err);
+    formStatus.textContent = '❌ 网络异常，请直接加微信或发邮件 (914228146@qq.com) 联系我。';
     formStatus.style.color = '#ff6b6b';
   }
-  setTimeout(() => { formStatus.textContent = ''; }, 8000);
+  setTimeout(() => { formStatus.textContent = ''; }, 10000);
 });
 
 /* ---------- 7. 作品卡悬停:声波条纹 CSS 动效 ---------- */
